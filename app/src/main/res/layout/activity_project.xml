@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainProjectLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/gray"
+    tools:context=".ProjectActivity">
+
+    <TextView
+        android:id="@+id/nameCurrentProject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_alternates_extrabold"
+        android:gravity="center"
+        android:text="@string/name"
+        android:textColor="@color/pink"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNewDot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnNewDot"
+        style="@android:style/Widget.DeviceDefault.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/aqua"
+        android:fontFamily="@font/montserrat_alternates_bold"
+        android:text="@string/new_dot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameCurrentProject" />
+
+    <TextView
+        android:id="@+id/viewInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/montserrat_alternates_light"
+        android:text="@string/choose_view_format"
+        android:textColor="@color/extra_dark_gray"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
+        app:layout_constraintEnd_toStartOf="@+id/spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNewDot"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        style="@android:style/Widget.DeviceDefault.Light.Spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:entries="@array/view_formats"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/viewInfo"
+        app:layout_constraintTop_toBottomOf="@+id/btnNewDot" />
+
+    <TextView
+        android:id="@+id/characteristicGraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/montserrat_alternates_light_italic"
+        android:text="@string/characteristic_here"
+        android:textColor="@color/light_dark_gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewInfo" />
+
+    <ImageView
+        android:id="@+id/arrowY"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/yAxis"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characteristicGraph"
+        app:srcCompat="@drawable/arrow"
+        android:contentDescription="@string/todo" />
+
+    <ImageView
+        android:id="@+id/arrowX"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:rotation="90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/xAxis"
+        app:srcCompat="@drawable/arrow"
+        android:contentDescription="@string/todo" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/yAxis"
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="12dp"
+        app:cardBackgroundColor="@color/light_dark_gray"
+        app:cardCornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrowY">
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/xAxis"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/light_dark_gray"
+        app:cardCornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/arrowX"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/xAxis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/yAxis"
+        app:layout_constraintTop_toBottomOf="@id/arrowY">
+
+        <view
+            android:id="@+id/line_view"
+            class="im.dacer.androidcharts.LineView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

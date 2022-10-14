@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">ProgressTracker</string>
+    <string name="plus">+</string>
+    <string name="sorry">Упс…</string>
+    <string name="empty">Кажется, Вы ещё не начали отслеживать свои начинания! Займитесь этим прямо
+        сейчас, просто нажмите на знак "+" в нижней части Вашего экрана!</string>
+
+    For model project category strings:
+    <string name="name">Здесь будет название трэкера</string>
+    <string name="last_change_text"> Вы последний раз вносили изменение</string>
+    <string name="last_change_here">DD:MM:YYYY</string>
+    <string name="characteristic_text">Вы измеряете ваш прогресс в </string>
+    <string name="characteristic_here">characteristic</string>
+
+    For delete dialog:
+    <string name="delete_msg">Вы уверены, что хотите удалить трекер?</string>
+
+    For new project dialog:
+    <string name="info">Чтобы Вы могли отслеживать свои начинания, просто заполните поля!</string>
+    <string name="name_info">Название Вашего занятия: </string>
+    <string name="characteristic_info">Вы будете измерять ваш прогресс в </string>
+    <string name="okay">Добавить!</string>
+
+    For current project activity:
+    <string name="new_dot">Добавить новое измерение!</string>
+    <string name="choose_view_format">Отображать последние </string>
+    <string name="todo">TODO</string>
+    <string-array name="view_formats">
+        <item>7 записей</item>
+        <item>14 записей</item>
+        <item>31 запись</item>
+        <item>365 записей</item>
+        <item>Все записи</item>
+    </string-array>
+
+    For new dot dialog:
+    <string name="new_dot_info">Введите значение нового замера!</string>
+</resources>
