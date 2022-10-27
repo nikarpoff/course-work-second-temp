@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import im.dacer.androidcharts.LineView;
+
+import static com.goldenkoi.progresstracker.MainActivity.database;
+import static com.goldenkoi.progresstracker.MainActivity.projectsDB;
 import static java.lang.Integer.parseInt;
 
 public class ProjectActivity extends AppCompatActivity {
@@ -50,6 +54,8 @@ public class ProjectActivity extends AppCompatActivity {
         spinnerChooseListener();
 
         btnNewDotListener();
+
+        btnDeleteDotListener();
 
         // При первом запуске отображаем на графике 7 последних точек
         printGraph(WEEK);
@@ -112,6 +118,36 @@ public class ProjectActivity extends AppCompatActivity {
                 }
             });
 
+            // и отображаем его:
+            alertDialog.show();
+        });
+    }
+
+    private void btnDeleteDotListener() {
+        Button deleteDot = findViewById(R.id.deleteDot);
+
+        deleteDot.setOnClickListener(view -> {
+            // Получаем вид с файла new_project_dialog.xml, который применим для диалогового окна:
+            LayoutInflater li = LayoutInflater.from(context);
+            View promptsView = li.inflate(R.layout.delete_dot_dialog, null);
+
+            AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(context); // Создаем AlertDialog
+
+            mDialogBuilder.setView(promptsView); // Настраиваем .xml файл для нашего AlertDialog
+
+            // Настраиваем сообщение в диалоговом окне:
+            mDialogBuilder
+                    .setPositiveButton("Да",
+                            (dialog, id) -> {
+                                // Когда пользователь нажимает на кнопку удаления, необходимо обратиться к
+                                // базе данных с запросом на удаление и заново отрисовываем график
+                                DataBasesOperations.deleteLastDot(nameProject);
+                                printGraph(currentRange);
+                            })
+                    .setNegativeButton("Отмена",
+                            (dialog, id) -> dialog.cancel());
+            // Создаем AlertDialog:
+            AlertDialog alertDialog = mDialogBuilder.create();
             // и отображаем его:
             alertDialog.show();
         });

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ProgressTracker</string>
     <string name="plus">+</string>
-    <string name="sorry">Упс…</string>
+    <string name="sorry">Извините…</string>
     <string name="empty">Кажется, Вы ещё не начали отслеживать свои начинания! Займитесь этим прямо
         сейчас, просто нажмите на знак "+" в нижней части Вашего экрана!</string>
 
@@ -14,6 +14,7 @@
 
     For delete dialog:
     <string name="delete_msg">Вы уверены, что хотите удалить трекер?</string>
+    <string name="delete_dot_msg">Вы уверены, что хотите удалить последнюю точку?</string>
 
     For new project dialog:
     <string name="info">Чтобы Вы могли отслеживать свои начинания, просто заполните поля!</string>
@@ -23,6 +24,7 @@
 
     For current project activity:
     <string name="new_dot">Добавить новое измерение!</string>
+    <string name="delete_dot">Удалить последнюю точку!</string>
     <string name="choose_view_format">Отображать последние </string>
     <string name="todo">TODO</string>
     <string-array name="view_formats">

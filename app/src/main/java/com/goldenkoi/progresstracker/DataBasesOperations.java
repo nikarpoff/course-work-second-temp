@@ -123,6 +123,7 @@ public class DataBasesOperations {
 
         // Обращаемся к базе данных с запросом sql на изменение данных в таблице
         projectsDB.updateDots(database, dotsValues, datesValues, nameProject);
+        projectsDB.updateLastDate(database, currentDate, nameProject);
     }
 
     private static void sortByDateModified(ArrayList<ProjectsContent> data) {
@@ -135,6 +136,7 @@ public class DataBasesOperations {
 
     private static void quickSortDates(ArrayList<ProjectsContent> data, int left, int right) throws ParseException {
         int i, j;
+
         ProjectsContent x, y;
         Date x_date;
 
@@ -148,10 +150,10 @@ public class DataBasesOperations {
 
 
         do {
-            while ((dateFormat.parse(data.get(i).getLastChange()).before(x_date)) && (i < right))
-                i++;
-            while ((x_date.before(dateFormat.parse(data.get(i).getLastChange()))) && (left < j))
-                j--;
+            while ((x_date).before(dateFormat.parse(data.get(i).getLastChange())) && (i < right)) {
+                i++; }
+            while ((dateFormat.parse(data.get(j).getLastChange())).before(x_date) && (left < j)) {
+                j--; }
 
             if (i <= j) {
                 y = data.get(i);
@@ -167,5 +169,34 @@ public class DataBasesOperations {
 
         if (left < j) quickSortDates(data, left, j);
         if (i < right) quickSortDates(data, i, right);
+    }
+
+    public static void deleteLastDot(String nameProject) {
+        String[] array = getDotsAndDatesStringArray(nameProject);
+
+        String dotsArray = array[0];
+        String datesArray = array[1];
+
+        String dateFormatInArray = " dd.MM.yy";
+
+        int i = dotsArray.length() - 1;
+
+        while (dotsArray.charAt(i) != ' ') {
+            dotsArray = dotsArray.substring(0, i);
+            i--;
+        }
+
+        dotsArray = dotsArray.substring(0, i);
+
+        datesArray = datesArray.substring(0, datesArray.length() - dateFormatInArray.length());
+
+        // Получаем дату с устройства и форматируем её
+        Date Date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
+        String currentDate = dateFormat.format(Date);
+
+        // Обращаемся к базе данных с запросом sql на изменение данных в таблице
+        projectsDB.updateDots(database, dotsArray, datesArray, nameProject);
+        projectsDB.updateLastDate(database, currentDate, nameProject);
     }
 }

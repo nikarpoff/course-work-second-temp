@@ -85,4 +85,10 @@ public class ProjectsDB extends SQLiteOpenHelper {
         //UPDATE projects SET dots = 'dotsArray', dates = 'datesArray' WHERE projectName = 'projectName';
     }
 
+    public void updateLastDate(SQLiteDatabase db, String lastDate, String projectName) {
+        db.execSQL(("update " + TABLE_PROJECTS + " set " + KEY_LAST_CHANGE +
+                " = '" + lastDate + "' where " + KEY_NAME+ " = '" + projectName + "'"));
+    }
+
+    //UPDATE projects SET last_change = 'lastDate' WHERE projectName = 'projectName';
 }
