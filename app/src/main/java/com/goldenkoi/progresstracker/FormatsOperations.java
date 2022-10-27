@@ -8,10 +8,18 @@ import com.goldenkoi.progresstracker.databases.ProjectsDB;
 
 public class FormatsOperations {
     public boolean checkName(String name_str, SQLiteDatabase database) {
+        String test_str = name_str.replaceAll("[^0-9а-яa-z- А-ЯA-Z]", "");
+        if (!test_str.equals(name_str)) {
+            return false;
+        }
         return (name_str.length() > 0 && name_str.length() < 100 && !isElementRepeating(name_str, database));
     }
 
     public boolean checkCharacteristic(String characteristic_str) {
+        String test_str = characteristic_str.replaceAll("[^0-9а-яa-z- А-ЯA-Z]", "");
+        if (!test_str.equals(characteristic_str)) {
+            return false;
+        }
         return (characteristic_str.length() > 0 && characteristic_str.length() < 50);
     }
 
@@ -21,7 +29,7 @@ public class FormatsOperations {
      */
     public String remake_str(String str) {
         str = str.toLowerCase();
-        str = str.replaceAll("[^0-9а-яa-z- ]", "");
+        str = str.replaceAll("[^0-9а-яa-z-]", "");
 
         return str;
     }
