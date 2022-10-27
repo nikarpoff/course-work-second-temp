@@ -104,6 +104,10 @@ public class ProjectActivity extends AppCompatActivity {
                     isValidValue = false;
                 }
 
+                if (dotValue < 0 || dotValue > 1000001) {
+                    isValidValue = false;
+                }
+
                 if (isValidValue) {
                     // Добавить новое значение в базу данных
                     DataBasesOperations.addNewDotToDB(dotValue, nameProject);
@@ -113,7 +117,7 @@ public class ProjectActivity extends AppCompatActivity {
                 else {
                     // Выводим сообщение об ошибке, если пользователь ошибся :)
                     Toast toast = Toast.makeText(this, "Ещё раз проверьте введённые данные, " +
-                            "ими должно быть целое число!",Toast.LENGTH_LONG);
+                            "ими должно быть целое положительное число!",Toast.LENGTH_LONG);
                     toast.show();
                 }
             });
@@ -141,7 +145,17 @@ public class ProjectActivity extends AppCompatActivity {
                             (dialog, id) -> {
                                 // Когда пользователь нажимает на кнопку удаления, необходимо обратиться к
                                 // базе данных с запросом на удаление и заново отрисовываем график
-                                DataBasesOperations.deleteLastDot(nameProject);
+                                if (DataBasesOperations.deleteLastDot(nameProject)) {
+                                    // Выводим сообщение об успехе
+                                    Toast toast = Toast.makeText(this, "Последняя точка " +
+                                            "была удалена!",Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else {
+                                    // Выводим сообщение об ошибке, если в БД нет точек
+                                    Toast toast = Toast.makeText(this, "На графике уже " +
+                                            "нет точек!",Toast.LENGTH_LONG);
+                                    toast.show();
+                                };
                                 printGraph(currentRange);
                             })
                     .setNegativeButton("Отмена",
@@ -206,6 +220,7 @@ public class ProjectActivity extends AppCompatActivity {
         // Получаем массивы с точками и датами
         String[] arrays = DataBasesOperations.getDotsAndDatesStringArray(nameProject);
         int size = getArraySize(arrays[0]); // Получаем количество записей в массиве
+        LineView lineView = findViewById(R.id.line_view);
 
         if (size > 0) {
             if (range == ALL_TIME) {
@@ -219,8 +234,7 @@ public class ProjectActivity extends AppCompatActivity {
             // это массив из массивов)
             ArrayList<ArrayList<Integer>> dataLists = getDotsArray(arrays[0], range);
 
-            // Ищем в проекте виджет с графиком
-            LineView lineView = findViewById(R.id.line_view);
+            lineView.setVisibility(View.VISIBLE);
             lineView.setDrawDotLine(true); //optional
             lineView.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
             lineView.setBottomTextList(dates); // Устанавливаем координаты по Ox
@@ -229,6 +243,8 @@ public class ProjectActivity extends AppCompatActivity {
             lineView.setDataList(dataLists); //or lineView.setFloatDataList(floatDataLists)}
 
             scrollGraphDown();
+        } else {
+            lineView.setVisibility(View.INVISIBLE);
         }
     }
 

@@ -3,6 +3,7 @@ package com.goldenkoi.progresstracker;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.goldenkoi.progresstracker.Model.ProjectsContent;
 import com.goldenkoi.progresstracker.databases.ProjectsDB;
@@ -171,32 +172,38 @@ public class DataBasesOperations {
         if (i < right) quickSortDates(data, i, right);
     }
 
-    public static void deleteLastDot(String nameProject) {
+    public static boolean deleteLastDot(String nameProject) {
         String[] array = getDotsAndDatesStringArray(nameProject);
 
         String dotsArray = array[0];
         String datesArray = array[1];
 
-        String dateFormatInArray = " dd.MM.yy";
+        if (dotsArray.length() > 0) {
+            String dateFormatInArray = " dd.MM.yy";
 
-        int i = dotsArray.length() - 1;
+            int i = dotsArray.length() - 1;
 
-        while (dotsArray.charAt(i) != ' ') {
+            while (dotsArray.charAt(i) != ' ') {
+                dotsArray = dotsArray.substring(0, i);
+                i--;
+            }
+
             dotsArray = dotsArray.substring(0, i);
-            i--;
+
+            datesArray = datesArray.substring(0, datesArray.length() - dateFormatInArray.length());
+
+            // Получаем дату с устройства и форматируем её
+            Date Date = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
+            String currentDate = dateFormat.format(Date);
+
+            // Обращаемся к базе данных с запросом sql на изменение данных в таблице
+            projectsDB.updateDots(database, dotsArray, datesArray, nameProject);
+            projectsDB.updateLastDate(database, currentDate, nameProject);
+
+            return true;
+        } else {
+            return false;
         }
-
-        dotsArray = dotsArray.substring(0, i);
-
-        datesArray = datesArray.substring(0, datesArray.length() - dateFormatInArray.length());
-
-        // Получаем дату с устройства и форматируем её
-        Date Date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
-        String currentDate = dateFormat.format(Date);
-
-        // Обращаемся к базе данных с запросом sql на изменение данных в таблице
-        projectsDB.updateDots(database, dotsArray, datesArray, nameProject);
-        projectsDB.updateLastDate(database, currentDate, nameProject);
     }
 }
